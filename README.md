@@ -1,6 +1,6 @@
 # Project 2: File System
 
-This is the starter code for [Project 2](https://course.ccs.neu.edu/cs3650f22/p2.html). The following contents are provided:
+This is the starter code for [Project 2](https://course.ccs.neu.edu/cs3650sp23/p2.html). The following contents are provided:
 
 - [Makefile](Makefile)   - Targets are explained in the assignment text
 - [README.md](README.md) - This README

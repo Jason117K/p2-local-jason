@@ -1,6 +1,6 @@
-// Disk storage manipulation.
+// Disk storage abstracttion.
 //
-// Feel free to use as inspiration.
+// Feel free to use as inspiration. Provided as-is.
 
 // based on cs3650 starter code
 

@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #include "bitmap.h"
-#include "blocks.h"
 
 #define nth_bit_mask(n) (1 << (n))
 #define byte_index(n) ((n) / 8)

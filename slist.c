@@ -1,9 +1,15 @@
-// based on cs3650 starter code
+/**
+ * @file slist.c
+ * @author CS3650 staff
+ *
+ * A simple linked list of strings.
+ *
+ * This might be useful for directory listings and for manipulating paths.
+ */
 
 #include <alloca.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 #include "slist.h"
 
@@ -31,7 +37,7 @@ void s_free(slist_t *xs) {
 
 slist_t *s_explode(const char *text, char delim) {
   if (*text == 0) {
-    return NULL;
+    return 0;
   }
 
   int plen = 0;
@@ -50,12 +56,4 @@ slist_t *s_explode(const char *text, char delim) {
   part[plen] = 0;
 
   return s_cons(part, rest);
-}
-
-void print_slist(slist_t *lst) {
-  slist_t *temp = lst;
-  while(temp != NULL) {
-    fprintf(stderr, "%s\n", temp->data);
-    temp = temp->next;
-  }
 }

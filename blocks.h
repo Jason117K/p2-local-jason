@@ -11,6 +11,12 @@
 
 #include <stdio.h>
 
+const int BLOCK_COUNT; // we split the "disk" into blocks (default = 256)
+const int BLOCK_SIZE;  // default = 4K
+const int NUFS_SIZE;   // default = 1MB
+
+const int BLOCK_BITMAP_SIZE; // default = 256 / 8 = 32
+
 /** 
  * Compute the number of blocks needed to store the given number of bytes.
  *
@@ -70,8 +76,5 @@ int alloc_block();
  * @param bnun The block number to deallocate.
  */
 void free_block(int bnum);
-
-//loads the "disk"
-void disk_init();
 
 #endif

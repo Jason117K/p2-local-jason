@@ -19,16 +19,12 @@
 
 #include "bitmap.h"
 #include "blocks.h"
-#include "inode.h"
-#include "directory.h"
 
-const int DISK_IMAGE_INITIALIZER = 69420;
 const int BLOCK_COUNT = 256; // we split the "disk" into 256 blocks
 const int BLOCK_SIZE = 4096; // = 4K
 const int NUFS_SIZE = BLOCK_SIZE * BLOCK_COUNT; // = 1MB
 
 const int BLOCK_BITMAP_SIZE = BLOCK_COUNT / 8;
-const int INODE_BITMAP_SIZE = BLOCK_COUNT / 8;
 // Note: assumes block count is divisible by 8
 
 static int blocks_fd = -1;
@@ -105,31 +101,4 @@ void free_block(int bnum) {
   printf("+ free_block(%d)\n", bnum);
   void *bbm = get_blocks_bitmap();
   bitmap_put(bbm, bnum, 0);
-}
-
-//if a disk hasn't been initialized yet, set it up. If it has, do nothing
-void disk_init() {
-  //to check if the disk has been formatted, see if the root directory is properly
-  //formatted
-  dir_header_t *init = (dir_header_t*) blocks_get_block(2);
-  if(strcmp(init->name, "/") == 0 && init->inode_num == 0) {
-    fprintf(stderr, "successfully loaded disk\n");
-  }
-  else { 
-    fprintf(stderr, "formatting disk\n");
-    //initial bitmap state, need the first 3 blocks
-    bitmap_put(get_blocks_bitmap(), 0, 1);
-    bitmap_put(get_blocks_bitmap(), 1, 1);
-    bitmap_put(get_blocks_bitmap(), 2, 1);
-    //set the first inode as taken for the root directory
-    bitmap_put(get_inode_bitmap(), 0, 1);
-    inode_t *root_inode = get_inode(0);
-    //set metadat of the root directory
-    root_inode->type = 1;
-    root_inode->mode = 040755;
-    root_inode->size = 4096 - sizeof(inode_t);
-    root_inode->block = 2;
-    directory_init(blocks_get_block(2), "/", 0, 0);
-    fprintf(stderr, "disk formatted sucessfully\n");
-  }
 }
